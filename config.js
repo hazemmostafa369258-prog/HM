@@ -31,26 +31,26 @@ const CONFIG = {
   },
   "projects": [
     {
-      "title": {
-        "ar": "متجر تويستد ليلي للعطور",
-        "en": "Twisted Lily Perfumess"
-      },
       "description": {
         "ar": "المشاركة في تصميم وتطوير واجهة المستخدم وتجربة التسوق لمتجر \"تويستد ليلي\" للعطور المستقلة في الولايات المتحدة، مع تحسين الأداء وتسهيل تصفح المنتجات العطرية.",
         "en": "Participated in the UI/UX design and e-commerce development for Twisted Lily, an independent niche perfumery in the US, focusing on performance optimization and a seamless shopping experience."
       },
+      "finishAt": "",
       "image": "images/projects/p-e3b83bb1.jpg",
+      "links": {
+        "live": "https://twistedlily.com/",
+        "repo": ""
+      },
+      "status": "done",
       "tech": [
         "Python",
         "JavaScript",
         "TypeScript",
         "HTML"
       ],
-      "status": "done",
-      "finishAt": "",
-      "links": {
-        "live": "twistedlily.com",
-        "repo": ""
+      "title": {
+        "ar": "متجر تويستد ليلي للعطور",
+        "en": "Twisted Lily Perfumess"
       }
     }
   ],
