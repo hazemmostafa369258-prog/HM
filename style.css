@@ -461,3 +461,108 @@ html { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   .theme-fade, .theme-fade *, .theme-fade *::before, .theme-fade *::after { transition: none !important; }
 }
+
+/* ---------- حركات إضافية 4 (خفيفة: transform و opacity بس) ---------- */
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes bob { 50% { transform: translateY(-6px); } }
+@keyframes header-in { from { opacity: 0; transform: translateY(-100%); } }
+@keyframes pop { from { opacity: 0; transform: scale(.96); } }
+
+.header { animation: header-in .5s ease both; }
+.status { animation: hero-in .7s ease .35s both; }
+.brand__dot:not([data-state="busy"]) { animation: pulse 2.4s infinite; }
+.countdown__time, .project-countdown__time { font-variant-numeric: tabular-nums; }
+
+/* أشكال هندسية عائمة في الرئيسية */
+.shapes { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.shape { position: absolute; border: 2px solid var(--accent); opacity: .18; }
+.shape--1 { width: 46px; height: 46px; top: 14%; inset-inline-start: 6%; animation: spin-slow 22s linear infinite; }
+.shape--2 { width: 22px; height: 22px; border-radius: 50%; top: 68%; inset-inline-start: 44%; animation: bob 7s ease-in-out infinite; }
+.shape--3 { width: 64px; height: 64px; border-radius: 12px; bottom: 10%; inset-inline-end: 8%; animation: spin-slow 30s linear infinite reverse; }
+@media (max-width: 760px), (prefers-reduced-data: reduce) { .shapes { display: none; } }
+
+/* نور ناعم بيتبع الماوس جوه الكروت */
+.skill-card, .project-card, .contact-link { position: relative; }
+.skill-card::before, .project-card::before, .contact-link::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(16, 185, 129, .14), transparent 70%);
+  transition: opacity .3s ease;
+}
+@media (hover: hover) {
+  .skill-card:hover::before, .project-card:hover::before, .contact-link:hover::before { opacity: 1; }
+  .project-card:hover { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px); }
+}
+
+/* أيقونات المهارات بتطفو بهدوء */
+.skill-card__icon { animation: bob 5s ease-in-out infinite; }
+.skill-card:nth-child(2n) .skill-card__icon { animation-delay: -1.7s; }
+.skill-card:nth-child(3n) .skill-card__icon { animation-delay: -3.1s; }
+
+/* التقنيات بتتحرك واحدة ورا التانية */
+.chip { transition: transform .2s ease, border-color .2s ease; }
+.project-card:hover .chip { transform: translateY(-2px); }
+.project-card:hover .chip:nth-child(2) { transition-delay: .05s; }
+.project-card:hover .chip:nth-child(3) { transition-delay: .1s; }
+.project-card:hover .chip:nth-child(4) { transition-delay: .15s; }
+
+/* رسالة الفورم */
+.form__msg.is-ok, .form__msg.is-error { animation: pop .35s ease; }
+
+/* ---------- حركات إضافية 5 ---------- */
+.photo { aspect-ratio: 1 / 1; }
+
+/* شريط المهارات المتحرك */
+.marquee {
+  direction: ltr; overflow: hidden; padding-block: 16px;
+  background: var(--surface-2); border-block: 1px solid var(--border);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track { display: flex; width: max-content; animation: marquee 36s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__item {
+  display: flex; align-items: center; gap: 10px; padding-inline-end: 44px;
+  font-family: var(--mono); color: var(--muted); white-space: nowrap;
+}
+.marquee__item img { width: 26px; height: 26px; object-fit: contain; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* الرئيسية بتخفت وتتحرك بهدوء وانت بتنزل (من غير JavaScript) */
+@supports (animation-timeline: view()) {
+  @keyframes exit-up { to { transform: translateY(-36px); opacity: .55; } }
+  .hero__side, .hero__text {
+    animation: exit-up linear both; animation-timeline: view(); animation-range: exit 0% exit 100%;
+  }
+}
+
+/* زرار المشاريع بيتملى عند الوقوف */
+.btn--ghost {
+  background-image: linear-gradient(var(--accent-soft), var(--accent-soft));
+  background-repeat: no-repeat; background-size: 0% 100%; background-position: 0 0;
+  transition: background-size .35s ease, border-color .2s, color .2s, transform .2s;
+}
+@media (hover: hover) { .btn--ghost:hover { background-size: 100% 100%; } }
+
+/* لمعة على عنوان الوظيفة */
+.tag { position: relative; overflow: hidden; }
+.tag::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, .22) 50%, transparent 65%);
+  transform: translateX(-120%); animation: shine 5s ease-in-out 1.5s infinite;
+}
+@keyframes shine { 0%, 60% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+
+/* لمعة على كارت المشروع */
+.project-card::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, .08) 50%, transparent 60%);
+  transform: translateX(-120%);
+}
+@media (hover: hover) { .project-card:hover::after { transform: translateX(120%); transition: transform .8s ease; } }
+
+/* هزة صغيرة لزرار الواتساب */
+@keyframes wiggle {
+  0%, 88%, 100% { transform: rotate(0); }
+  91% { transform: rotate(-14deg); } 94% { transform: rotate(12deg); } 97% { transform: rotate(-8deg); }
+}
+.wa-fab svg { animation: wiggle 7s ease-in-out 4s infinite; }

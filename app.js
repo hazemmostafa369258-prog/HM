@@ -80,7 +80,7 @@
 	function renderPhoto() {
 		var box = $("photo"); box.textContent = "";
 		if (C.profile.photo) {
-			var img = el("img"); img.src = C.profile.photo; img.alt = L(C.profile.name); img.width = 320; img.height = 400;
+			var img = el("img"); img.src = C.profile.photo; img.alt = L(C.profile.name); img.width = 320; img.height = 320;
 			img.onerror = function () { box.textContent = ""; box.appendChild(initials()); };
 			box.appendChild(img);
 		} else { box.appendChild(initials()); }
@@ -95,6 +95,7 @@
 		var g = $("skillsGrid"); g.textContent = "";
 		C.skills.forEach(function (s) {
 			var card = el("article", "skill-card"), ic = el("div", "skill-card__icon"), img = el("img", s.darkInvert ? "invert-dark" : "");
+			iconFallback(img);
 			img.src = s.icon; img.alt = s.name; img.loading = "lazy"; img.width = 40; img.height = 40;
 			ic.appendChild(img);
 			card.appendChild(ic); card.appendChild(el("h3", "skill-card__name", s.name)); card.appendChild(el("p", "skill-card__desc", L(s.desc)));
@@ -296,6 +297,43 @@
 		upd();
 	}
 
+	/* ---------- أشكال هندسية عائمة في الرئيسية ---------- */
+	function setupShapes() {
+		var hero = document.querySelector(".hero");
+		if (!hero || hero.querySelector(".shapes")) return;
+		var wrap = el("div", "shapes");
+		wrap.setAttribute("aria-hidden", "true");
+		for (var i = 1; i <= 3; i++) wrap.appendChild(el("span", "shape shape--" + i));
+		hero.appendChild(wrap);
+	}
+
+	/* ---------- نور الكروت + ميلة المشاريع (للماوس بس) ---------- */
+	function setupPointerFx() {
+		if (!window.matchMedia("(hover: hover)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+		var raf = 0, ev = null;
+		document.addEventListener("pointermove", function (e) {
+			ev = e;
+			if (raf) return;
+			raf = requestAnimationFrame(function () {
+				raf = 0;
+				if (!ev.target || !ev.target.closest) return;
+				var card = ev.target.closest(".skill-card, .project-card, .contact-link");
+				if (!card) return;
+				var r = card.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+				card.style.setProperty("--mx", x + "px");
+				card.style.setProperty("--my", y + "px");
+				if (card.classList.contains("project-card")) {
+					card.style.setProperty("--rx", ((0.5 - y / r.height) * 6).toFixed(2) + "deg");
+					card.style.setProperty("--ry", ((x / r.width - 0.5) * 6).toFixed(2) + "deg");
+				}
+			});
+		}, { passive: true });
+		document.addEventListener("pointerout", function (e) {
+			var c = e.target && e.target.closest ? e.target.closest(".project-card") : null;
+			if (c && !c.contains(e.relatedTarget)) { c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); }
+		});
+	}
+
 	/* ---------- حركة تبديل الوضع ---------- */
 	$("themeBtn").addEventListener("click", function () {
 		var b = this;
@@ -303,8 +341,42 @@
 		b.classList.remove("spin"); void b.offsetWidth; b.classList.add("spin");
 		setTimeout(function () { root.classList.remove("theme-fade"); b.classList.remove("spin"); }, 450);
 	});
+	/* ---------- لو اللوجو مش اتحمّل: جرّب النسخة التانية، وإلا اخفيه ---------- */
+	function iconFallback(img) {
+		img.onerror = function () {
+			img.onerror = null;
+			var s = img.src, alt = s.indexOf("-original.svg") > -1 ? s.replace("-original.svg", "-plain.svg")
+						  : s.indexOf("-plain.svg") > -1 ? s.replace("-plain.svg", "-original.svg") : "";
+			if (alt) { img.onerror = function () { img.style.visibility = "hidden"; }; img.src = alt; }
+			else img.style.visibility = "hidden";
+		};
+	}
+
+	/* ---------- شريط المهارات المتحرك ---------- */
+	function setupMarquee() {
+		var hero = document.querySelector(".hero");
+		if (!hero || document.querySelector(".marquee") || !C.skills.length) return;
+		var wrap = el("div", "marquee"), track = el("div", "marquee__track");
+		wrap.setAttribute("aria-hidden", "true");
+		for (var r = 0; r < 4; r++) {
+			C.skills.forEach(function (s) {
+				var it = el("span", "marquee__item");
+				if (s.icon) {
+					var im = el("img", s.darkInvert ? "invert-dark" : "");
+					iconFallback(im);
+					im.src = s.icon; im.alt = ""; im.loading = "lazy"; im.width = 26; im.height = 26;
+					it.appendChild(im);
+				}
+				it.appendChild(document.createTextNode(s.name));
+				track.appendChild(it);
+			});
+		}
+		wrap.appendChild(track);
+		hero.insertAdjacentElement("afterend", wrap);
+	}
+
 	/* ---------- تشغيل ---------- */
 	$("year").textContent = new Date().getFullYear();
-	applyTheme(); applyLang(); setupSpy(); setupHeaderShadow();
+	applyTheme(); applyLang(); setupSpy(); setupHeaderShadow(); setupShapes(); setupPointerFx(); setupMarquee();
 	setInterval(tick, 1000);
 })();
