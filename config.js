@@ -29,7 +29,28 @@ const CONFIG = {
       "en": "Web Developer | Software Engineer"
     }
   },
-  "projects": [],
+  "projects": [
+    {
+      "title": {
+        "ar": "               تجريبي ",
+        "en": ""
+      },
+      "description": {
+        "ar": "ميساب",
+        "en": ""
+      },
+      "image": "images/projects/p-b9b4b0c4.jpg",
+      "tech": [
+        "python"
+      ],
+      "status": "done",
+      "finishAt": "",
+      "links": {
+        "live": "",
+        "repo": ""
+      }
+    }
+  ],
   "site": {
     "defaultLang": "ar",
     "defaultTheme": "dark",
