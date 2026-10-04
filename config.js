@@ -29,7 +29,31 @@ const CONFIG = {
       "en": "Web Developer | Software Engineer"
     }
   },
-  "projects": [],
+  "projects": [
+    {
+      "title": {
+        "ar": "فيتل بوتانيك للعطور",
+        "en": "Fettle Botanic Perfumes"
+      },
+      "description": {
+        "ar": "متجر إلكتروني أمريكي متخصص في العطور العضوية والنباتية المصنوعة يدوياً بكميات محدودة. يتميز بتجربة تصفح هادئة، ونظام ترشيح ذكي للعطور، مع تصميم عصري يركز على تجربة المستخدم وسرعة الأداء",
+        "en": "An American e-commerce platform specializing in handcrafted, organic, and botanical perfumes. Designed with a minimalist aesthetic, offering a smooth user experience, advanced product filtering, and optimized checkout performance."
+      },
+      "image": "",
+      "tech": [
+        "Python",
+        "JavaScript",
+        "TypeScript",
+        "HTML"
+      ],
+      "status": "done",
+      "finishAt": "",
+      "links": {
+        "live": "",
+        "repo": ""
+      }
+    }
+  ],
   "site": {
     "defaultLang": "ar",
     "defaultTheme": "dark",
