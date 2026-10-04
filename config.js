@@ -34,7 +34,7 @@ const CONFIG = {
     "defaultLang": "ar",
     "defaultTheme": "dark",
     "description": {
-      "ar": "الموقع الرسمي والمعرض الشخصي للمهندس حازم مصطفى، مبرمج ومطور ويب وسوفت وير إنجينير محترف. تصفح أحدث مشاريع البرمجة والحلول الرقمية وتواصل معي مباشرة.",
+      "ar": "الموقع الرسمي والمعرض الشخصي للمهندس حازم مصطفى، مبرمج ومطور ويب ومهندس برمجة محترف. تصفح أحدث مشاريع البرمجة والحلول الرقمية وتواصل معي مباشرة.",
       "en": "Official portfolio of Hazem Mostafa, professional Software Engineer and Web Developer. Explore my latest programming projects, digital solutions, and get in touch.\""
     },
     "domain": "https://hazemmostafa.vercel.app",
@@ -84,6 +84,22 @@ const CONFIG = {
       },
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       "name": "Python"
+    },
+    {
+      "desc": {
+        "ar": "تطوير وتخصيص مواقع ووردبريس",
+        "en": "WordPress development & customization."
+      },
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
+      "name": "WordPress"
+    },
+    {
+      "desc": {
+        "ar": "أساسيات PHP لتخصيص ووردبريس",
+        "en": "PHP basics for WordPress work"
+      },
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+      "name": "PHP"
     }
   ],
   "status": {
