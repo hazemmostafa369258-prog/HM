@@ -32,14 +32,14 @@ const CONFIG = {
   "projects": [
     {
       "title": {
-        "ar": "فيتل بوتانيك للعطور",
-        "en": "Fettle Botanic Perfumes"
+        "ar": "متجر تويستد ليلي للعطور",
+        "en": "Twisted Lily Perfumess"
       },
       "description": {
-        "ar": "متجر إلكتروني أمريكي متخصص في العطور العضوية والنباتية المصنوعة يدوياً بكميات محدودة. يتميز بتجربة تصفح هادئة، ونظام ترشيح ذكي للعطور، مع تصميم عصري يركز على تجربة المستخدم وسرعة الأداء",
-        "en": "An American e-commerce platform specializing in handcrafted, organic, and botanical perfumes. Designed with a minimalist aesthetic, offering a smooth user experience, advanced product filtering, and optimized checkout performance."
+        "ar": "المشاركة في تصميم وتطوير واجهة المستخدم وتجربة التسوق لمتجر \"تويستد ليلي\" للعطور المستقلة في الولايات المتحدة، مع تحسين الأداء وتسهيل تصفح المنتجات العطرية.",
+        "en": "Participated in the UI/UX design and e-commerce development for Twisted Lily, an independent niche perfumery in the US, focusing on performance optimization and a seamless shopping experience."
       },
-      "image": "",
+      "image": "images/projects/p-e3b83bb1.jpg",
       "tech": [
         "Python",
         "JavaScript",
@@ -49,7 +49,7 @@ const CONFIG = {
       "status": "done",
       "finishAt": "",
       "links": {
-        "live": "",
+        "live": "twistedlily.com",
         "repo": ""
       }
     }
