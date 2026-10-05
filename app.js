@@ -156,7 +156,7 @@
 	}
 
 	/* ---------- SEO ---------- */
-	function meta(sel, attr, val) { var n = document.querySelector(sel); if (n) n.setAttribute(attr, val); }
+	function meta(sel, attr, val) { var n = document.querySelector(sel); if (n && val) n.setAttribute(attr, val); }
 	function renderSEO() {
 		var title = L(C.site.title), desc = L(C.site.description) || L(C.profile.bio), dom = (C.site.domain || "").replace(/\/$/, "");
 		document.title = title;
