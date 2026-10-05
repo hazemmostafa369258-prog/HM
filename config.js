@@ -11,7 +11,7 @@ const CONFIG = {
   "links": {
     "email": "mailto:HAZEM.MOSTAFA369258@GMAIL.COM",
     "github": "",
-    "linkedin": "https\\www.linkedin.com/in/hazem-mustafa-mahmod",
+    "linkedin": "https\\linkedin.com/in/hazem-mustafa-mahmod",
     "whatsapp": "https://wa.me/201559042340"
   },
   "profile": {
