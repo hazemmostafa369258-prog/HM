@@ -51,29 +51,37 @@
 		var s = Math.floor(ms / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
 		return d + t("unit") + " " + pad(h) + ":" + pad(m) + ":" + pad(s % 60);
 	}
-	function addTimer(node, iso) { timers.push({ node: node, end: Date.parse(iso) }); }
+	function addTimer(node, iso, onEnd) { timers.push({ node: node, end: Date.parse(iso), onEnd: onEnd, done: false }); }
 	function tick() {
-		var now = Date.now();
-		timers.forEach(function (x) {
-			var left = x.end - now;
-			if (left <= 0) { x.node.parentElement.hidden = true; } else { x.node.textContent = fmt(left); }
-		});
+	  var now = Date.now();
+	  timers.forEach(function (x) {
+	    if (x.done) return;
+	    var left = x.end - now;
+	    if (left <= 0) {
+	      x.done = true;
+	      x.node.parentElement.hidden = true;
+	      if (x.onEnd) x.onEnd();
+	    } else { x.node.textContent = fmt(left); }
+	  });
 	}
 	function futureDate(iso) { var d = Date.parse(iso || ""); return !isNaN(d) && d > Date.now(); }
 
 	/* ---------- الحالة ---------- */
 	function renderStatus() {
-		var s = C.status, busy = s.state === "busy", key = busy ? "busy" : "available";
-		$("status").dataset.state = key;
-		$("brandDot").dataset.state = key;
-		$("statusText").textContent = L(s.text[key]);
-		var box = $("statusCountdown");
-		if (busy && futureDate(s.availableAgainAt)) {
-			box.hidden = false;
-			$("statusCountdownLabel").textContent = L(s.countdownLabel);
-			addTimer($("statusCountdownTime"), s.availableAgainAt);
-		} else { box.hidden = true; }
-		$("contactStatusText").textContent = L(s.contactText);
+	  var s = C.status, busy = s.state === "busy";
+	  var hasDate = !!s.availableAgainAt && !isNaN(Date.parse(s.availableAgainAt));
+	  if (busy && hasDate && !futureDate(s.availableAgainAt)) busy = false;
+	  var key = busy ? "busy" : "available";
+	  $("status").dataset.state = key;
+	  $("brandDot").dataset.state = key;
+	  $("statusText").textContent = L(s.text[key]);
+	  var box = $("statusCountdown");
+	  if (busy && futureDate(s.availableAgainAt)) {
+	    box.hidden = false;
+	    $("statusCountdownLabel").textContent = L(s.countdownLabel);
+	    addTimer($("statusCountdownTime"), s.availableAgainAt, renderStatus);
+	  } else { box.hidden = true; }
+	  $("contactStatusText").textContent = L(s.contactText);
 	}
 
 	/* ---------- الصورة ---------- */
@@ -230,9 +238,18 @@
 		// الافتراضي: يفتح تطبيق الإيميل على رابط الإيميل اللي في config.js (EmailJS هنضيفه لما نقرر)
 		var to = (C.links.email || "").replace(/^mailto:/i, "").split("?")[0];
 		if (!to) { say(t("noContact"), "is-error"); return; }
+		var subj = "Portfolio: " + d.name;
 		var body = d.message + "\n\n— " + d.name + " (" + d.email + ")";
-		window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent("Portfolio: " + d.name) + "&body=" + encodeURIComponent(body);
-		say(t("sent"), "is-ok");
+		var mailtoUrl = "mailto:" + to + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+		var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+		if (isMobile) {
+		  window.location.href = mailtoUrl;
+		} else {
+		  var g = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(to) + "&su=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+		  var w = window.open(g, "_blank");
+		  if (w) { w.opener = null; } else { window.location.href = mailtoUrl; }
+		}
+		say(lang === "ar" ? "اتفتح Gmail برسالتك، دوس إرسال هناك." : "Gmail opened with your message, press Send there.", "is-ok");
 	});
 
 	/* ---------- حركات الظهور عند النزول ---------- */
