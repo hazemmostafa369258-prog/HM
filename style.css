@@ -518,6 +518,7 @@ html { -webkit-tap-highlight-color: transparent; }
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
+
 .marquee__track { display: flex; width: max-content; animation: marquee 36s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 .marquee__item {
@@ -566,3 +567,9 @@ html { -webkit-tap-highlight-color: transparent; }
   91% { transform: rotate(-14deg); } 94% { transform: rotate(12deg); } 97% { transform: rotate(-8deg); }
 }
 .wa-fab svg { animation: wiggle 7s ease-in-out 4s infinite; }
+
+/* ---------- أداء: ظهور سريع لنص الرئيسية ---------- */
+@keyframes hero-slide { from { transform: translateY(14px); } to { transform: none; } }
+.hero__text > *, .hero__text > *:nth-child(n) { animation: hero-slide .5s ease 0s both; }
+.status { animation: hero-slide .5s ease 0s both; }
+.header { animation: none; }
