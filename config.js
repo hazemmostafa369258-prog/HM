@@ -127,7 +127,7 @@ const CONFIG = {
     }
   ],
   "status": {
-    "availableAgainAt": "2026-10-07T09:52:26.052Z",
+    "availableAgainAt": "2026-10-07T17:04:46.530Z",
     "contactText": {
       "ar": "متاح للتواصل والاستفسارات",
       "en": "Open for contact & inquiries"
