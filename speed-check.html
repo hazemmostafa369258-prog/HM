@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>افحص سرعة موقعك مجاناً | حازم مصطفى</title>
+<meta name="description" content="أداة مجانية لفحص سرعة أي موقع على الموبايل والكمبيوتر، تعرض درجة الأداء وأهم المشاكل اللي بتبطّئه.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hazemmostafa.vercel.app/speed-check.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="افحص سرعة موقعك مجاناً">
+<meta property="og:description" content="أداة مجانية لفحص سرعة أي موقع وعرض أهم المشاكل.">
+<meta property="og:url" content="https://hazemmostafa.vercel.app/speed-check.html">
+<link rel="stylesheet" href="speed-check.css">
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="/" id="back">← العودة للموقع</a>
+    <div class="tools"><button type="button" id="thm" aria-label="Theme">◐</button><button type="button" id="lng">EN</button></div>
+  </div>
+  <h1 id="h1">افحص سرعة موقعك</h1>
+  <p class="sub" id="sub">اكتب رابط أي موقع، وهنعرض لك درجة الأداء وأهم المشاكل اللي بتبطّئه.</p>
+  <form id="f" class="row" novalidate>
+    <input id="u" type="text" inputmode="url" dir="ltr" placeholder="https://example.com" autocomplete="url" maxlength="300" required>
+    <button id="go" type="submit">افحص</button>
+  </form>
+  <div class="seg" id="seg"><button type="button" id="sm" data-s="mobile" class="on">موبايل</button><button type="button" id="sd" data-s="desktop">كمبيوتر</button></div>
+  <p id="msg" role="status" aria-live="polite"></p>
+  <section id="res" hidden>
+    <div class="scores" id="scores"></div>
+    <h2 id="mt">المقاييس</h2>
+    <ul class="metrics" id="metrics"></ul>
+    <h2 id="it">أهم المشاكل</h2>
+    <ol class="issues" id="issues"></ol>
+    <div class="cta">
+      <p id="ctat"></p>
+      <a id="wa" class="btn" target="_blank" rel="noopener noreferrer" hidden></a>
+      <a id="full" class="btn ghost" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+  </section>
+  <p class="note" id="note"></p>
+</main>
+<script src="config.js"></script>
+<script src="speed-check.js" defer></script>
+</body>
+</html>
