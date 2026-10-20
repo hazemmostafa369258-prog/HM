@@ -127,7 +127,7 @@ const CONFIG = {
     }
   ],
   "status": {
-    "availableAgainAt": "2026-10-14T16:10:16.828Z",
+    "availableAgainAt": "2026-10-21T11:53:57.008Z",
     "contactText": {
       "ar": "متاح للتواصل والاستفسارات",
       "en": "Open for contact & inquiries"
@@ -136,7 +136,7 @@ const CONFIG = {
       "ar": "هكون متاح بعد",
       "en": "Available again in"
     },
-    "state": "available",
+    "state": "busy",
     "text": {
       "available": {
         "ar": "متاح للتطوير الآن",
