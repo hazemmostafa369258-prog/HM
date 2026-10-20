@@ -136,7 +136,7 @@ const CONFIG = {
       "ar": "هكون متاح بعد",
       "en": "Available again in"
     },
-    "state": "busy",
+    "state": "available",
     "text": {
       "available": {
         "ar": "متاح للتطوير الآن",
